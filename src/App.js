@@ -35,7 +35,10 @@ function App() {
   const resetSudoku = () => {
     setSudoku(makeEmptySudoku())
   }
-
+  const refreshSudoku = () => {
+    const newSudoku = [...sudoku]
+    setSudoku(newSudoku) 
+  }
   const solveSudoku = async () => {
     // check input
     for(let x = 0; x < sudoku.length;x++){
@@ -44,16 +47,10 @@ function App() {
         if( viable.has(val) === false){console.log("wrong at",x,y);return}
       }
     }
-
     await SudokuSolver(sudoku)
     setSudoku([...sudoku])
   }
-
-
-
-
-
-  function SudokuSolver(grid){
+  async function SudokuSolver(grid){
     const validMap = (map) => {
       for (const key in map) {
         if (map[key] > 1) { return false; }
@@ -93,19 +90,25 @@ function App() {
   
       return true;
     }
-    const bt = (x, y) => {
+    const bt = async(x, y) => {
       if (y >= 9) { return true; }
-      if (x >= grid.length) { return  bt(0, y + 1); }
-      if (grid[x][y] !== '') { return  bt(x + 1, y); }
+      if (x >= grid.length) { return  await bt(0, y + 1); }
+      if (grid[x][y] !== '') { return  await bt(x + 1, y); }
       for (let i = 1; i <= 9; i++) {
+        function timeout(ms) {
+          return new Promise(resolve => setTimeout(resolve, ms));
+        }
         grid[x][y] = `${i}`;
+        refreshSudoku()
+        await timeout(10)
         if (isValid(x, y) === false) { continue; }
-        if ( bt(x + 1, y)) { return true; }
+        
+        if ( await bt(x + 1, y)) { return true; }
       }
       grid[x][y] = '';
       return false;
     };
-    bt(0, 0);
+    await bt(0, 0);
   };
 
 
