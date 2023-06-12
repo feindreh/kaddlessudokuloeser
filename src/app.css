@@ -1,0 +1,23 @@
+#sudoku{
+    background-color: rgb(0, 0, 0);
+    width:fit-content;
+    display: grid;
+    grid-template-rows: repeat(9, 50px);
+    grid-template-columns: repeat(9, 50px);
+    grid-gap: 4px;
+    border:black solid 5px;
+    align-content: center;
+}
+
+.sqr{
+    background-color: white;
+    text-align: center;
+    vertical-align: middle;
+    line-height: 50px;  
+    font-size: 25px;
+    font-weight: bold;
+}
+
+input{
+    border:none;
+}
