@@ -25,6 +25,8 @@ viable.add("")
 function App() {
 
   const [sudoku,setSudoku] = useState(makeEmptySudoku())
+  const [solving,setSolving] = useState(false)
+
 
   const updateSudoku = (x,y,value) => {
     const newSudoku = [...sudoku]
@@ -33,6 +35,7 @@ function App() {
   }
 
   const resetSudoku = () => {
+    if(solving){return}
     setSudoku(makeEmptySudoku())
   }
   const refreshSudoku = () => {
@@ -40,6 +43,8 @@ function App() {
     setSudoku(newSudoku) 
   }
   const solveSudoku = async () => {
+    if(solving){console.log("blocked");return}
+    setSolving(true)
     // check input
     for(let x = 0; x < sudoku.length;x++){
       for(let y = 0;y < sudoku.length;y++){
@@ -48,6 +53,7 @@ function App() {
       }
     }
     await SudokuSolver(sudoku)
+    setSolving(false)
     setSudoku([...sudoku])
   }
   async function SudokuSolver(grid){
