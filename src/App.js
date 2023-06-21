@@ -33,7 +33,6 @@ function App() {
     newSudoku[x][y] = value
     setSudoku(newSudoku) 
   }
-
   const resetSudoku = () => {
     if(solving){return}
     setSudoku(makeEmptySudoku())
@@ -106,7 +105,7 @@ function App() {
         }
         grid[x][y] = `${i}`;
         refreshSudoku()
-        await timeout(10)
+        await timeout(0)
         if (isValid(x, y) === false) { continue; }
         
         if ( await bt(x + 1, y)) { return true; }
@@ -118,14 +117,9 @@ function App() {
   };
 
 
-
-
-
-
-
   return (
     <div id="wrap">
-      <Sudoku sudoku = {sudoku} update = {updateSudoku}/>
+      <Sudoku solving = {solving} sudoku = {sudoku} update = {updateSudoku}/>
       <Buttons reset = {resetSudoku} solve = {solveSudoku}/>
     </div>
   );
