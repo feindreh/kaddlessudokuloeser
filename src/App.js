@@ -51,11 +51,11 @@ function App() {
         if( viable.has(val) === false){console.log("wrong at",x,y);return}
       }
     }
-    await SudokuSolver(sudoku)
+    await SudokuSolver(sudoku,refreshSudoku)
     setSolving(false)
     setSudoku([...sudoku])
   }
-  async function SudokuSolver(grid){
+  async function SudokuSolver(grid,refresh){
     const validMap = (map) => {
       for (const key in map) {
         if (map[key] > 1) { return false; }
@@ -104,7 +104,7 @@ function App() {
           return new Promise(resolve => setTimeout(resolve, ms));
         }
         grid[x][y] = `${i}`;
-        refreshSudoku()
+        refresh()
         await timeout(0)
         if (isValid(x, y) === false) { continue; }
         
