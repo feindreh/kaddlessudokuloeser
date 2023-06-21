@@ -2,13 +2,13 @@
     background-color: rgb(0, 0, 0);
     width:fit-content;
     display: grid;
-    grid-template-rows: repeat(9, 50px);
-    grid-template-columns: repeat(9, 50px);
-    grid-gap: 4px;
+    grid-template-rows: repeat(3, 50px) 4px repeat(3, 50px) 4px repeat(3, 50px);
+    grid-template-columns: repeat(3, 50px) 4px repeat(3, 50px) 4px repeat(3, 50px);
+    grid-gap: 1px;
     border:black solid 5px;
     align-content: center;
-}
 
+}
 .sqr{
     background-color: white;
     text-align: center;
@@ -20,4 +20,8 @@
 
 input{
     border:none;
+}
+
+.unClickAble{
+    pointer-events: none;
 }
