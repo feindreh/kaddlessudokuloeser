@@ -1,6 +1,6 @@
-import "./app.css"
-import Sudoku from "./sudoku";
-import Buttons from "./buttons";
+import "./css/app.css"
+import Sudoku from "./components/sudoku";
+import Buttons from "./components/buttons";
 import { useState } from "react";
 import SudokuSolver from "./sudokuSolver";
 
