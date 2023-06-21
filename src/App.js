@@ -3,24 +3,7 @@ import Sudoku from "./components/sudoku";
 import Buttons from "./components/buttons";
 import { useState } from "react";
 import SudokuSolver from "./sudokuSolver";
-
-const makeEmptySudoku = () => {
-  const arr = []
-  for(let i = 0; i<9;i++){
-      const row = []
-      for(let j = 0; j<9 ; j++){
-          row.push("")
-      }
-      arr.push(row)
-  }
-  return arr
-}
-
-const viable = new Set()
-for(let i = 1; i<=9;i++){
-    viable.add(""+i)
-}
-viable.add("")
+import makeEmptySudoku from "./helper";
 
 function App() {
 
@@ -42,9 +25,14 @@ function App() {
     setSudoku(newSudoku) 
   }
   const solveSudoku = async () => {
-    if(solving){console.log("blocked");return}
+    if(solving){return}
     setSolving(true)
     // check input
+    const viable = new Set()
+    for(let i = 1; i<=9;i++){
+        viable.add(""+i)
+    }
+    viable.add("")
     for(let x = 0; x < sudoku.length;x++){
       for(let y = 0;y < sudoku.length;y++){
         const val = sudoku[x][y]
