@@ -16,6 +16,6 @@ function SudokuSquare(props) {
   let xEnd = x+2 + Math.floor(x/3)
   let yStart = y+1 + Math.floor(y/3)
   let yEnd = y+2 + Math.floor(y/3)
-  return (<input onChange = {handleChange} className = "sqr" value={value} style={{ "grid-area":`${xStart}/${yStart}/${xEnd}/${yEnd}`}}/>);
+  return (<input onChange = {handleChange} className = "sqr" value={value} style={{ gridArea:`${xStart}/${yStart}/${xEnd}/${yEnd}`}}/>);
 }
 export default SudokuSquare;
