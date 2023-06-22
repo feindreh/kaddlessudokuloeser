@@ -5,7 +5,9 @@ import { useState } from "react";
 import SudokuSolver from "./sudokuSolver";
 import makeEmptySudoku from "./helper";
 
-function App() {
+function App(props) {
+
+  const {bigReset} = props
 
   const [sudoku,setSudoku] = useState(makeEmptySudoku())
   const [solving,setSolving] = useState(false)
@@ -17,8 +19,7 @@ function App() {
     setSudoku(newSudoku) 
   }
   const resetSudoku = () => {
-    if(solving){return}
-    setSudoku(makeEmptySudoku())
+      bigReset()
   }
   const refreshSudoku = () => {
     const newSudoku = [...sudoku]
