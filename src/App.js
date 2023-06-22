@@ -3,15 +3,14 @@ import Sudoku from "./components/sudoku";
 import Buttons from "./components/buttons";
 import { useState } from "react";
 import SudokuSolver from "./sudokuSolver";
-import makeEmptySudoku from "./helper";
 
 function App(props) {
 
-  const {bigReset} = props
+  const {softReset,setStartSudoku,startSudoku,hardReset} = props
 
-  const [sudoku,setSudoku] = useState(makeEmptySudoku())
+  const [sudoku,setSudoku] = useState(startSudoku)
   const [solving,setSolving] = useState(false)
-
+  const [oldSudoku,setOldSudoku] = useState([...sudoku])
 
   const updateSudoku = (x,y,value) => {
     const newSudoku = [...sudoku]
@@ -19,7 +18,7 @@ function App(props) {
     setSudoku(newSudoku) 
   }
   const resetSudoku = () => {
-      bigReset()
+      hardReset()
   }
   const refreshSudoku = () => {
     const newSudoku = [...sudoku]
@@ -27,6 +26,7 @@ function App(props) {
   }
   const solveSudoku = async () => {
     if(solving){return}
+    setOldSudoku(sudoku.map((row) => row.map((n) => n)))
     setSolving(true)
     // check input
     const viable = new Set()
@@ -44,13 +44,16 @@ function App(props) {
     setSolving(false)
     setSudoku([...sudoku])
   }
+  const stopSolving = () => {
+    softReset(oldSudoku)
+  }
   
 
 
   return (
     <div id="wrap">
       <Sudoku solving = {solving} sudoku = {sudoku} update = {updateSudoku}/>
-      <Buttons reset = {resetSudoku} solve = {solveSudoku}/>
+      <Buttons stop = {stopSolving} reset = {resetSudoku} solve = {solveSudoku}/>
     </div>
   );
 
